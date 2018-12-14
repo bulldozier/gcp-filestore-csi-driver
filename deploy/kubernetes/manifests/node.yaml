@@ -17,6 +17,9 @@ spec:
     spec:
       serviceAccount: gcp-filestore-csi-node-sa
       hostNetwork: true
+      nodeSelector:
+        workload: desktop
+        testing: csi
       containers:
         - name: csi-driver-registrar
           imagePullPolicy: Always

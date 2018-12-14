@@ -17,6 +17,9 @@ spec:
         app: gcp-filestore-csi-driver
     spec:
       serviceAccount: gcp-filestore-csi-controller-sa
+      nodeSelector:
+        workload: desktop
+        testing: csi
       containers:
         - name: csi-external-attacher
           imagePullPolicy: Always

@@ -6,6 +6,9 @@ metadata:
 spec:
   template:
     spec:
+      nodeSelector:
+        workload: desktop
+        testing: csi
       containers:
         - name: gcp-filestore-driver
           image: gcr.io/msau-k8s-dev/gcp-filestore-csi-driver
