@@ -22,11 +22,13 @@ spec:
           imagePullPolicy: Always
           image: quay.io/k8scsi/csi-attacher:v0.3.0
           args:
-            - "--v=4"
+            - "--v=999"
             - "--csi-address=$(ADDRESS)"
           env:
             - name: ADDRESS
               value: /csi/csi.sock
+            - name: GLOG_logtostderr
+              value: "1"
           volumeMounts:
             - name: socket-dir
               mountPath: /csi
@@ -34,13 +36,15 @@ spec:
           imagePullPolicy: Always
           image: quay.io/k8scsi/csi-provisioner:v0.3.0
           args:
-            - "--v=4"
+            - "--v=999"
             # Remove when https://github.com/kubernetes-csi/external-provisioner/issues/108 is fixed
             - "--provisioner=com.google.csi.filestore"
             - "--csi-address=$(ADDRESS)"
           env:
             - name: ADDRESS
               value: /csi/csi.sock
+            - name: GLOG_logtostderr
+              value: "1"
           volumeMounts:
             - name: socket-dir
               mountPath: /csi
@@ -48,7 +52,7 @@ spec:
           imagePullPolicy: Always
           image: gcr.io/google-containers/volume-csi/gcp-filestore-csi-driver:v0.1.0
           args:
-            - "--v=4"
+            - "--v=999"
             - "--endpoint=$(CSI_ENDPOINT)"
             - "--nodeid=$(KUBE_NODE_NAME)"
             - "--controller=true"
@@ -61,6 +65,8 @@ spec:
                   fieldPath: spec.nodeName
             - name: GOOGLE_APPLICATION_CREDENTIALS
               value: "/etc/cloud_sa/gcp_filestore_csi_driver_sa.json"
+            - name: GLOG_logtostderr
+              value: "1"
           volumeMounts:
             - name: socket-dir
               mountPath: /csi
