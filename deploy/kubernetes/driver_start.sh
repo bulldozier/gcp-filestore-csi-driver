@@ -1,4 +1,5 @@
 #!/bin/bash
+set -eux
 
 set -x
 set -o nounset
