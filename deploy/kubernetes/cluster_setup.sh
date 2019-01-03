@@ -16,6 +16,7 @@ fi
 
 kubectl apply -f "$mydir/manifests/setup_cluster.yaml"
 
+# TODO: Delete and re-create this k8s secret idempotently, just like its secrets file.
 if ! kubectl get secret gcp-filestore-csi-driver-sa --namespace=$GCFS_NS; then
   kubectl create secret generic gcp-filestore-csi-driver-sa --from-file="$GCFS_SA_FILE" --namespace=$GCFS_NS
 fi
